@@ -1,0 +1,1 @@
+import type { MetadataRoute } from "next"; export default function sitemap():MetadataRoute.Sitemap{return ['','/games','/tournaments','/teams','/leaderboard','/rewards','/news'].map(path=>({url:`https://playspire.gg${path}`,lastModified:new Date(),changeFrequency:'weekly',priority:path===''?1:.7}))}

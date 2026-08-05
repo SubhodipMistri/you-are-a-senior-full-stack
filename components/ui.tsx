@@ -1,0 +1,14 @@
+"use client";
+import { motion } from "framer-motion";
+import { Bell, ChevronRight, Menu, Search, Wallet, X } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
+import { nav } from "@/lib/data";
+
+export function Logo() { return <Link href="/" className="flex items-center gap-2 font-black tracking-tight text-white"><span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-cyan to-electric text-lg text-ink">P</span><span>playspire</span></Link>; }
+export function Navbar() { const [open,setOpen]=useState(false); return <header className="sticky top-0 z-50 border-b border-white/5 bg-ink/80 backdrop-blur-xl"><div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 lg:px-8"><Logo/><nav className="hidden items-center gap-5 lg:flex">{nav.map(x=><Link className="text-sm text-slate-400 transition hover:text-white" href={x==="Home"?"/":"/"+x.toLowerCase()} key={x}>{x}</Link>)}</nav><div className="flex items-center gap-2"><button className="hidden p-2 text-slate-400 md:block"><Search size={19}/></button><button className="hidden p-2 text-slate-400 sm:block"><Bell size={19}/></button><Link href="/wallet" className="hidden sm:block"><Wallet size={19} className="text-cyan"/></Link><Link href="/login" className="btn-primary hidden sm:inline-flex">Join Playspire</Link><button onClick={()=>setOpen(!open)} className="p-2 lg:hidden">{open?<X/>:<Menu/>}</button></div></div>{open&&<div className="border-t border-white/10 px-4 py-4 lg:hidden">{nav.map(x=><Link onClick={()=>setOpen(false)} className="block rounded-lg px-3 py-2 text-slate-300 hover:bg-white/5" href={x==="Home"?"/":"/"+x.toLowerCase()} key={x}>{x}</Link>)}</div>}</header>; }
+export function PageHeader({eyebrow,title,children}:{eyebrow:string,title:string,children?:React.ReactNode}) { return <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end"><div><p className="eyebrow">{eyebrow}</p><h1 className="mt-2 text-3xl font-black tracking-tight md:text-4xl">{title}</h1></div>{children}</div>; }
+export function Card({children,className}:{children:React.ReactNode,className?:string}) { return <motion.div initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} className={cn("panel",className)}>{children}</motion.div>; }
+export function Footer(){return <footer className="mt-20 border-t border-white/10 px-5 py-10 text-sm text-slate-500"><div className="mx-auto flex max-w-7xl flex-col justify-between gap-5 md:flex-row"><Logo/><p>© 2026 Playspire. Built for the next generation of competitors.</p><div className="flex gap-4"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Support</a></div></div></footer>}
+export function ArrowLink({href,children}:{href:string,children:React.ReactNode}){return <Link href={href} className="inline-flex items-center gap-1 text-sm font-bold text-cyan hover:text-white">{children}<ChevronRight size={16}/></Link>}

@@ -1,0 +1,5 @@
+import Link from "next/link";
+import { Award, Bell, CreditCard, LayoutDashboard, Settings, Shield, Trophy, User } from "lucide-react";
+import { Navbar } from "@/components/ui";
+const links=[[LayoutDashboard,'Overview','/dashboard'],[User,'Profile','/profile'],[CreditCard,'Wallet','/wallet'],[Trophy,'Tournament history','/dashboard/history'],[Award,'Achievements','/dashboard/achievements'],[Bell,'Notifications','/notifications'],[Settings,'Settings','/dashboard/settings'],[Shield,'Security','/dashboard/security']];
+export function DashboardShell({children}:{children:React.ReactNode}){return <><Navbar/><main className="mx-auto grid min-h-screen max-w-7xl gap-8 px-5 py-8 lg:grid-cols-[220px_1fr]"><aside className="hidden lg:block"><p className="eyebrow mb-3 px-3">Player center</p>{links.map(([I,label,href])=>{const Icon=I as typeof User;return <Link className="mb-1 flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-slate-400 transition hover:bg-white/5 hover:text-white" href={href as string} key={label as string}><Icon size={17}/>{label as string}</Link>})}</aside><section className="min-w-0">{children}</section></main></>}

@@ -1,0 +1,3 @@
+import { NextRequest, NextResponse } from "next/server"; import { z } from "zod";
+const createTeam=z.object({name:z.string().min(3).max(32),tag:z.string().min(2).max(5).regex(/^[A-Za-z0-9]+$/),gameId:z.string().cuid(),region:z.string().min(2).max(40)});
+export async function POST(request:NextRequest){const body=await request.json().catch(()=>null);const parsed=createTeam.safeParse(body);if(!parsed.success)return NextResponse.json({error:"Validation failed",issues:parsed.error.flatten()},{status:400});return NextResponse.json({data:{id:"team_pending",...parsed.data},message:"Team creation queued"},{status:201})}
